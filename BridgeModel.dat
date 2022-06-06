@@ -1,0 +1,1326 @@
++prog aqua urs:1
+head  materialy_i_przekroje
+echo full full
+norm dc EN NDC 1992-2004 cat b
+
+$Definiowanie materiałw
+stee no 1 type s 355
+conc no 2 type c fcn 50
+conc no 3 type c fcn 50 gam 0
+stee no 4 type y 1030
+
+
+$Definiowanie przekroju dźwigara
+let#hw 1000   $wysokość środnika
+let#tw 14    $połowa grubość środnika
+let#bf1 120  $połowa szerokości płki grnej
+let#tf1 26   $grubość płki grnej
+let#bf2 240  $połowa szerokości płki dolnej
+let#tf2 26   $grubość płki dolnej
+
+sect no 1 mno 1 titl dźwigar zm -350
+poly type opz
+vert no  y     z
+      1  0     0
+      2 #bf1   0
+      3 #bf1    #tf1
+      4 #tw     #tf1
+      5 #tw     #hw+#tf1
+      6 #bf2    #hw+#tf1
+      7 #bf2    #hw+#tf1+#tf2
+      8 0       #hw+#tf1+#tf2
+
+
+sect no 2 mno 2 titl plyta_bet_podl  zm -450
+poly type rect dy 400 dz 200
+
+sect no 3 mno 3 titl plyta_bet_poprz  zm -450
+poly type rect dy 500  dz 200
+
+
+$Definiowanie przekroju poprzecznicy
+let#h 1052   $wysokość
+let#tw 26    $grubość
+let#b 200  $połowa szerokości
+
+sect no 4 mno 1 titl poprzecznica zm -350
+poly type opz
+vert no  y     z
+      1  0     0
+      2 #b     0
+      3 #b     #h
+      4 0      #h
+
+poly type opz mno 0
+vert no y   z
+     1  0   #tw
+     2  #b-#tw  #tw
+     3  #b-#tw  #h-#tw
+     4  0   #h-#tw
+
+
+$Definiowanie przekroju poprzecznicy skrajnej
+let#h 652   $wysokość
+let#tw 26    $ grubość
+let#b 200  $połowa szerokości
+sect no 5 mno 1 titl poprzecznica_skrajna zm -350
+poly type opz
+vert no  y     z
+      1  0     0
+      2 #b     0
+      3 #b     #h
+      4 0      #h
+
+poly type opz mno 0
+vert no y   z
+     1  0   #tw
+     2  #b-#tw  #tw
+     3  #b-#tw  #h-#tw
+     4  0   #h-#tw
+
+
+$Definiowanie przekroju poprzecznic posrednich
+let#hw 1000  $wysokość środnika
+let#tw 14    $połowa grubość środnika
+let#bf1 160  $połowa szerokości płki grnej
+let#tf1 26   $grubość płki grnej
+let#bf2 160  $połowa szerokości płki dolnej
+let#tf2 26   $grubość płki dolnej
+
+sect no 48 mno 1 titl poprzecznie_posrednie zm -350
+poly type opz
+vert no  y     z
+      1  0     0
+      2 #bf1   0
+      3 #bf1    #tf1
+      4 #tw     #tf1
+      5 #tw     #hw+#tf1
+      6 #bf2    #hw+#tf1
+      7 #bf2    #hw+#tf1+#tf2
+      8 0       #hw+#tf1+#tf2
+
+$Definiowanie przekroju wspornikow poprzecznic posrednich
+let#hw 600   $wysokość środnika
+let#tw 14    $połowa grubość środnika
+let#bf1 160  $połowa szerokości płki grnej
+let#tf1 26   $grubość płki grnej
+let#bf2 160  $połowa szerokości płki dolnej
+let#tf2 26   $grubość płki dolnej
+
+sect no 49 mno 1 titl wspornik_poprzecznic_posrednich zm -350
+poly type opz
+vert no  y     z
+      1  0     0
+      2 #bf1   0
+      3 #bf1    #tf1
+      4 #tw     #tf1
+      5 #tw     #hw+#tf1
+      6 #bf2    #hw+#tf1
+      7 #bf2    #hw+#tf1+#tf2
+      8 0       #hw+#tf1+#tf2
+
+
+$Definiowanie przekrojow pylonu
+let#h 3000 $wysokosc zew.
+let#b 400 $1/2szerokosc zew.
+let#i 6
+let#g 40
+
+loop 38
+sect #i mno 1 titl pylon
+poly type opz
+vert no y   z
+     1  0   0
+     2  #b  0
+     3  #b  #h
+     4  0   #h
+poly type opz mno 0
+vert no y   z
+     1  0   #g
+     2  #b-#g  #g
+     3  #b-#g   #h-#g
+     4  0   #h-#g
+
+let#h #h-56.568
+let#i #i+1
+endloop
+
+$Definiowanie przekroju rygli
+scit no 44 d 700 t 40 mno 1 titl rygiel
+
+$Definiowanie przekroju kabli
+sect no 45 mno 4 titl liny    $L1
+circ no y z r
+     1  0 0 28
+
+sect no 46 mno 4 titl liny    $L2,L3,L4,L5
+circ no y z r
+     1  0 0 21
+
+sect no 47 mno 4 titl liny    $L6,L7,L8
+circ no y z r
+     1  0 0 18
+end
++prog sofimsha urs:2
+head geometria
+syst type 3d gdiv 100000 gdir negz
+
+$Definicja plyty z prawej
+node no (1000 1169 1) x (0 0.5) y 0 z 0
+
+$Definicja dźwigara prawego
+node no (2000 2169 1) x (0 0.5) y 0.4 z 0 $węzły, w ktrych dźwigar będzie połączony z plyta
+
+$Definicja płyty w środku prawa
+node no (3000 3169 1) x (0 0.5) y 0.8 z 0
+node no (4000 4169 1) x (0 0.5) y 1.2 z 0
+node no (5000 5169 1) x (0 0.5) y 1.6 z 0
+
+$Definicja dźwigara w środku
+node no (6000 6169 1) x (0 0.5) y 2 z 0
+
+$Definicja płyty w środku lewa
+node no (7000 7169 1) x (0 0.5) y 2.4 z 0
+node no (8000 8169 1) x (0 0.5) y 2.8 z 0
+node no (9000 9169 1) x (0 0.5) y 3.2 z 0
+
+$Definicja dźwigara lewego
+node no (10000 10169 1) x (0 0.5) y 3.6 z 0
+
+$Definicja płyty lewa
+node no (11000 11169 1) x (0 0.5) y 4 z 0
+
+$Definicja poprzecznic o stałym przekroju
+let#no 15000
+let#x 0
+loop 12
+node no (#no #no+2 1) x #x y (0.8 0.4) z 0
+node no (#no+3 #no+5 1) x #x y (2.4 0.4) z 0
+let#x #x+2.5
+let#no #no+100
+endloop
+
+let#x #x+0.5
+loop 4
+node no (#no #no+2 1) x #x y (0.8 0.4) z 0
+node no (#no+3 #no+5 1) x #x y (2.4 0.4) z 0
+let#x #x+3
+let#no #no+100
+endloop
+
+let#x #x-0.5
+loop 19
+node no (#no #no+2 1) x #x y (0.8 0.4) z 0
+node no (#no+3 #no+5 1) x #x y (2.4 0.4) z 0
+let#x #x+2.5
+let#no #no+100
+endloop
+
+$Definicja  poprzecznicy skrajnej  prawej
+let#y -0.28
+let#x 0
+let#no 20000
+loop 12
+node no #no x #x y #y  z 0
+let#x #x+2.5
+let#no #no+1
+endloop
+
+let#x #x+0.5
+loop 4
+node no #no x #x y #y  z 0
+let#x #x+3
+let#no #no+1
+endloop
+
+let#x #x-0.5
+loop 19
+node no #no x #x y #y  z 0
+let#x #x+2.5
+let#no #no+1
+endloop
+
+$$Definicja wezlow poprzecznicy skrajnej  lewej
+let#x 0
+let#y 4.28
+let#no 30000
+loop 12
+node no #no x #x y #y  z 0
+let#x #x+2.5
+let#no #no+1
+endloop
+
+let#x #x+0.5
+loop 4
+node no #no x #x y #y  z 0
+let#x #x+3
+let#no #no+1
+endloop
+
+let#x #x-0.5
+loop 19
+node no #no x #x y #y  z 0
+let#x #x+2.5
+let#no #no+1
+endloop
+
+$Definicja wezlow pylonu prawego
+node no 40000 x 25.971 y -1.299 z -4.257 $podstawa
+node no 40001 x 26.163 y -1.307 z -3.742
+node no 40002 x 26.513 y -1.322 z -2.805
+node no 40003 x 26.863 y -1.337 z -1.868
+node no 40004 x 27.162 y -1.350 z -1.066     $rygiel dolny
+node no 40005 x 27.292 y -1.352 z -0.719
+node no 40006 x 27.642 y -1.356 z  0.218
+node no 40007 x 27.992 y -1.360 z  1.155
+node no 40008 x 28.342 y -1.364 z  2.092
+node no 40009 x 28.692 y -1.369 z  3.029
+node no 40010 x 29.042 y -1.373 z  3.966
+node no 40011 x 29.392 y -1.375 z  4.903
+node no 40012 x 29.742 y -1.368 z  5.84   $lina P
+node no 40013 x 30.092 y -1.359 z  6.777
+node no 40014 x 30.442 y -1.351 z  7.714
+node no 40015 x 30.792 y -1.343 z  8.651
+node no 40016 x 31.142 y -1.330 z  9.588   $lina P
+node no 40017 x 31.492 y -1.312 z  10.525
+node no 40018 x 31.842 y -1.294 z  11.462
+node no 40019 x 32.192 y -1.276 z  12.399
+node no 40020 x 32.542 y -1.258 z  13.336
+node no 40021 x 32.892 y -1.230 z  14.273   $lina obie
+node no 40022 x 33.242 y -1.202 z  15.210
+node no 40023 x 33.592 y -1.174 z  16.147
+node no 40024 x 33.942 y -1.146 z  17.084
+node no 40025 x 34.292 y -1.114 z  18.021   $lina P
+node no 40026 x 34.642 y -1.076 z  18.958
+node no 40027 x 34.992 y -1.038 z  19.895
+node no 40028 x 35.342 y -1.000 z  20.832
+node no 40029 x 35.692 y -0.962 z  21.769
+node no 40030 x 36.042 y -0.916 z  22.706   $lina P
+node no 40031 x 36.390 y -0.871 z  23.643
+node no 40032 x 36.591 y -0.845 z  24.179  $rygiel gorny
+node no 40033 x 36.740 y -0.822 z  24.574
+node no 40034 x 37.090 y -0.772 z  25.511
+node no 40035 x 37.440 y -0.718 z  26.448   $lina obie
+node no 40036 x 37.790 y -0.662 z  27.385
+node no 40037 x 38.140 y -0.605 z  28.322
+node no 40038 x 38.490 y -0.548 z  29.259
+
+$Definicja wezlow pylonu lewego
+node no 50000 x 25.971 y 5.299 z -4.257 $podstawa
+node no 50001 x 26.163 y 5.307 z -3.742
+node no 50002 x 26.513 y 5.322 z -2.805
+node no 50003 x 26.863 y 5.337 z -1.868
+node no 50004 x 27.162 y 5.350 z -1.066     $rygiel dolny
+node no 50005 x 27.292 y 5.352 z -0.719
+node no 50006 x 27.642 y 5.356 z  0.218
+node no 50007 x 27.992 y 5.360 z  1.155
+node no 50008 x 28.342 y 5.364 z  2.092
+node no 50009 x 28.692 y 5.369 z  3.029
+node no 50010 x 29.042 y 5.373 z  3.966
+node no 50011 x 29.392 y 5.375 z  4.903
+node no 50012 x 29.742 y 5.368 z  5.84   $lina P
+node no 50013 x 30.092 y 5.359 z  6.777
+node no 50014 x 30.442 y 5.351 z  7.714
+node no 50015 x 30.792 y 5.343 z  8.651
+node no 50016 x 31.142 y 5.330 z  9.588   $lina P
+node no 50017 x 31.492 y 5.312 z  10.525
+node no 50018 x 31.842 y 5.294 z  11.462
+node no 50019 x 32.192 y 5.276 z  12.399
+node no 50020 x 32.542 y 5.258 z  13.336
+node no 50021 x 32.892 y 5.230 z  14.273   $lina obie
+node no 50022 x 33.242 y 5.202 z  15.210
+node no 50023 x 33.592 y 5.174 z  16.147
+node no 50024 x 33.942 y 5.146 z  17.084
+node no 50025 x 34.292 y 5.114 z  18.021   $lina P
+node no 50026 x 34.642 y 5.076 z  18.958
+node no 50027 x 34.992 y 5.038 z  19.895
+node no 50028 x 35.342 y 5.000 z  20.832
+node no 50029 x 35.692 y 4.962 z  21.769
+node no 50030 x 36.042 y 4.916 z  22.706   $lina P
+node no 50031 x 36.390 y 4.871 z  23.643
+node no 50032 x 36.591 y 4.845 z  24.179  $rygiel gorny
+node no 50033 x 36.740 y 4.822 z  24.574
+node no 50034 x 37.090 y 4.772 z  25.511
+node no 50035 x 37.440 y 4.718 z  26.448   $lina obie
+node no 50036 x 37.790 y 4.662 z  27.385
+node no 50037 x 38.140 y 4.605 z  28.322
+node no 50038 x 38.490 y 4.548 z  29.259
+
+$Definiowanie węzlow rygli
+$dolny
+let#no 60000
+let#x 27.162
+let#y 0.327
+let#z -1.066
+loop 3
+node no #no x #x y #y z #z
+let#y #y+1.673
+let#no #no+1
+endloop
+
+$gorny
+let#no 60100
+let#x 36.591
+let#y 0.54
+let#z 24.179
+loop 3
+node no #no x #x y #y z #z
+let#y #y+1.422
+let#no #no+1
+endloop
+
+$Definicja węzłw pod balustradę
+node (70000 70169 1) x (0 0.5) y 0.25 z 0 $prawe
+node (80000 80169 1) x (0 0.5) y 3.75 z 0 $lewe
+
+$Definicja wezlow pod podpory
+node 90000 x 0 y 0.4 z -0.528
+node 90169 x 84.5 y 0.4 z -0.528
+node 95000 x 0 y 3.6 z -0.528
+node 95169 x 84.5 y 3.6 z -0.528
+
+
+
+
+
+
+
+$Przypisanie do grup i zadanie elementu na węzłach
+$Dźwigar prawy
+grp no 1 titl dzwigar_prawy
+let#no 101
+let#na 2000
+loop 169
+beam no #no na #na ne #na+1 ncs 1 np -1
+let#no #no+1
+let#na #na+1
+endloop
+
+$Dzwigar srodek
+grp no 2 titl dzwigar_srodek
+let#no 201
+let#na 6000
+loop 169
+beam no #no na #na ne #na+1 ncs 1 np -1
+let#no #no+1
+let#na #na+1
+endloop
+
+$Dzwigar lewy
+grp no 3 titl dzwigar_lewy
+let#no 301
+let#na 10000
+loop 169
+beam no #no na #na ne #na+1 ncs 1 np -1
+let#no #no+1
+let#na #na+1
+endloop
+
+
+$Plyta podluzna
+grp no 4 titl plyta_podluzna
+let#no 1000
+let#na 1000
+loop 11
+beam no (#no #no+168 1) na (#na 1) ne (#na+1 1) ncs 2 np -1
+let#na #na+1000
+let#no #no+1000
+endloop
+
+$ Plyta poprzecza
+grp no 5 titl plyta_poprzeczne_cz1
+let#no 1000
+let#na 1000
+loop 85
+beam no (#no #no+9 1) na (#na 1000) ne (#na+1000 1000) ncs 3 np -1
+let#na #na+1
+let#no #no+100
+endloop
+
+grp no 6 titl plyta_poprzeczne_cz2
+let#no 9500
+let#na 1085
+loop 85
+beam no (#no #no+9 1) na (#na 1000) ne (#na+1000 1000) ncs 3 np -1
+let#na #na+1
+let#no #no+100
+endloop
+
+$Poprzecznice
+grp no 7 titl poprzecznice_stale
+$Poprzecznice skrzynkowe
+let#no 401
+let#na 2000
+let#na1 15000
+let#na2 6000
+let#na3 10000
+beam no #no na #na ne #na1 ncs 4 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 4 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 4 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 4 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 4 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 4 np -1
+
+let#no 441
+let#na 2025
+let#na1 15500
+let#na2 6025
+let#na3 10025
+beam no #no na #na ne #na1 ncs 4 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 4 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 4 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 4 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 4 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 4 np -1
+
+let#no 529
+let#na 2084
+let#na1 16600
+let#na2 6084
+let#na3 10084
+beam no #no na #na ne #na1 ncs 4 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 4 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 4 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 4 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 4 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 4 np -1
+
+let#no 553
+let#na 2099
+let#na1 16900
+let#na2 6099
+let#na3 10099
+loop 5
+beam no #no na #na ne #na1 ncs 4 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 4 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 4 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 4 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 4 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 4 np -1
+let#no #no+24
+let#na #na+15
+let#na1 #na1+300
+let#na2 #na2+15
+let#na3 #na3+15
+endloop
+
+$Poprzecznice dwuteowe
+let#no 409
+let#na 2005
+let#na1 15100
+let#na2 6005
+let#na3 10005
+loop 4
+beam no #no na #na ne #na1 ncs 48 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 48 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 48 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 48 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 48 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 48 np -1
+let#no #no+8
+let#na #na+5
+let#na1 #na1+100
+let#na2 #na2+5
+let#na3 #na3+5
+endloop
+
+let#no 449
+let#na 2030
+let#na1 15600
+let#na2 6030
+let#na3 10030
+loop 6
+beam no #no na #na ne #na1 ncs 48 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 48 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 48 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 48 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 48 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 48 np -1
+let#no #no+8
+let#na #na+5
+let#na1 #na1+100
+let#na2 #na2+5
+let#na3 #na3+5
+endloop
+
+let#no 497
+let#na 2061
+let#na1 16200
+let#na2 6061
+let#na3 10061
+loop 4
+beam no #no na #na ne #na1 ncs 48 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 48 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 48 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 48 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 48 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 48 np -1
+let#no #no+8
+let#na #na+6
+let#na1 #na1+100
+let#na2 #na2+6
+let#na3 #na3+6
+endloop
+
+let#no 537
+let#na 2089
+let#na1 16700
+let#na2 6089
+let#na3 10089
+loop 6
+loop 2
+beam no #no na #na ne #na1 ncs 48 np -1
+beam no (#no+1 #no+2 1) na (#na1 1) ne (#na1+1 1) ncs 48 np -1
+beam no #no+3 na #na1+2 ne #na2 ncs 48 np -1
+beam no #no+4 na #na2 ne #na1+3 ncs 48 np -1
+beam no (#no+5 #no+6 1) na (#na1+3 1) ne (#na1+4 1) ncs 48 np -1
+beam no #no+7 na #na1+5 ne #na3 ncs 48 np -1
+let#no #no+8
+let#na #na+5
+let#na1 #na1+100
+let#na2 #na2+5
+let#na3 #na3+5
+endloop
+let#no #no+8
+let#na #na+5
+let#na1 #na1+100
+let#na2 #na2+5
+let#na3 #na3+5
+endloop
+
+$Poprzeczecznice skrajne
+grp 8 titl poprzecznice_zmienne
+$Poprzecznice skrzynkowe
+let#no 1000
+let#na1 2000
+let#na 20000
+beam no #no na #na1 ne #na ncs 4.5 np -1
+
+let#no 1005
+let#na1 2025
+let#na 20005
+beam no #no na #na1 ne #na ncs 4.5 np -1
+
+let#no 1016
+let#na1 2084
+let#na 20016
+loop 6
+beam no #no na #na1 ne #na ncs 4.5 np -1
+let#no #no+3
+let#na1 #na1+15
+let#na #na+3
+endloop
+
+let#no 2000
+let#na1 10000
+let#na 30000
+beam no #no na #na1 ne #na ncs 4.5 np -1
+
+let#no 2005
+let#na1 10025
+let#na 30005
+beam no #no na #na1 ne #na ncs 4.5 np -1
+
+let#no 2016
+let#na1 10084
+let#na 30016
+loop 6
+beam no #no na #na1 ne #na ncs 4.5 np -1
+let#no #no+3
+let#na1 #na1+15
+let#na #na+3
+endloop
+
+$Poprzecznice dwuteowe
+let#no 1001
+let#na 2005
+let#na1 20001
+loop 4
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+let#no 1006
+let#na 2030
+let#na1 20006
+loop 6
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+let#no 1012
+let#na 2061
+let#na1 20012
+loop 4
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+6
+let#na1 #na1+1
+endloop
+
+let#no 1017
+let#na 2089
+let#na1 20017
+loop 6
+loop 2
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+let#no 2001
+let#na 10005
+let#na1 30001
+loop 4
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+let#no 2006
+let#na 10030
+let#na1 30006
+loop 6
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+let#no 2012
+let#na 10061
+let#na1 30012
+loop 4
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+6
+let#na1 #na1+1
+endloop
+
+let#no 2017
+let#na 10089
+let#na1 30017
+loop 6
+loop 2
+beam no #no na #na1 ne #na ncs 49.48 np -1
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+let#no #no+1
+let#na #na+5
+let#na1 #na1+1
+endloop
+
+
+$Pylon prawy
+grp 9 titl pylon
+let#no 1000
+let#na 40000
+let#p 6
+loop 37
+beam no #no  na #na ne #na+1 ncs #p.#p+1
+let#no #no+1
+let#na #na+1
+let#p #p+1
+endloop
+
+$Pylon lewy
+let#no 2000
+let#na 50000
+let#p 6
+loop 37
+beam no #no  na #na ne #na+1 ncs #p.#p+1
+let#no #no+1
+let#na #na+1
+let#p #p+1
+endloop
+
+$Rygle
+grp 10 titl rygle
+beam no 3000 na 40004 ne 60000 ncs 44
+beam no (3001 3002 1) na (60000 1) ne (60001 1) ncs 44
+beam no 3003 na 60002 ne 50004 ncs 44
+
+beam no 4000 na 40032 ne 60100 ncs 44
+beam no (4001 4002 1) na (60100 1) ne (60101 1) ncs 44
+beam no 4003 na 60102 ne 50032 ncs 44
+
+$Liny
+$prawe
+grp 11
+cabl no 100 na 20000 ne 40035 ncs 45
+cabl no 200 na 30000 ne 50035 ncs 45
+
+grp 12
+cabl no 201 na 30005 ne 50021 ncs 46
+cabl no 101 na 20005 ne 40021 ncs 46
+
+cabl no 202 na 30016 ne 50012 ncs 46
+cabl no 102 na 20016 ne 40012 ncs 46
+
+cabl no 203 na 30019 ne 50016 ncs 46
+cabl no 103 na 20019 ne 40016 ncs 46
+
+cabl no 204 na 30022 ne 50021 ncs 46
+cabl no 104 na 20022 ne 40021 ncs 46
+
+grp 13
+cabl no 205 na 30025 ne 50025 ncs 47
+cabl no 105 na 20025 ne 40025 ncs 47
+
+cabl no 206 na 30028 ne 50030 ncs 47
+cabl no 106 na 20028 ne 40030 ncs 47
+
+cabl no 207 na 30031 ne 50035 ncs 47
+cabl no 107 na 20031 ne 40035 ncs 47
+
+
+$Podpory
+node 90000 fix pp
+node 90169 fix pzpy
+node 95000 fix pzpx
+node 95169 fix pz
+node 40000 fix ppmm
+node 50000 fix ppmm
+
+$node 90000 fix pxpypz $Podpory do sprawdzenia geometrii
+$node 90169 fix pxpypz
+$node 95000 fix pxpypz
+$node 95169 fix pxpypz
+$node 40000 fix pxpypz
+$node 50000 fix pxpypz
+
+kine nd 60001 fix pypz nd1 6054.0
+kine nd 90000 fix pp nd1 2000.0
+kine nd 90169 fix pzpy nd1 2169.0
+kine nd 95000 fix pzpx nd1 10000.0
+kine nd 95169 fix pz nd1 10169.0
+
+end
+
+
+prog ase urs:3
+head ciezar_wlasny
+lc no 1 dlz 1
+end
+
++prog sofiload urs:4
+head obciazenia
+lc 11 titl zywica
+beam from 402000 to 410168 type PG pa 0.01824
+beam from 401000 to 401168 type PG pa 0.00912
+beam from 411000 to 411168 type PG pa 0.00912
+lc 12 titl balustrada
+line ref bgrp type PG p1 0.5 x1 0 y1 3.75 z1 0 p2 0.5 x2 84.5 y2 3.5 z2 0
+line ref bgrp type PG p1 0.5 x1 0 y1 0.25 z1 0 p2 0.5 x2 84.5 y2 0.25 z2 0
+end
++prog ase urs:5
+head wyposazenie
+lc 11,12
+end
+
++prog sofiload urs:6
+head  tlum
+let#lc 1000
+let#na 402000
+
+loop 11
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.4
+let#na #na+5
+let#lc #lc+1
+endloop
+
+loop 4
+lc #lc titl tlum
+beam from #na to #na+5 inc 1 type pg pa 1.4
+let#na #na+6
+let#lc #lc+1
+endloop
+
+loop 18
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.4
+let#na #na+5
+let#lc #lc+1
+endloop
+
+let#lc 2000
+let#na 403000
+
+loop 7
+loop 11
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.6
+let#na #na+5
+let#lc #lc+1
+endloop
+
+loop 4
+lc #lc titl tlum
+beam from #na to #na+5 inc 1 type pg pa 1.6
+let#na #na+6
+let#lc #lc+1
+endloop
+
+loop 18
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.6
+let#na #na+5
+let#lc #lc+1
+endloop
+let#lc #lc-32-1+1000
+let#na #na-164-5+1000
+endloop
+
+let#lc 8500
+let#na 410000
+
+loop 11
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.4
+let#na #na+5
+let#lc #lc+1
+endloop
+
+loop 4
+lc #lc titl tlum
+beam from #na to #na+5 inc 1 type pg pa 1.4
+let#na #na+6
+let#lc #lc+1
+endloop
+
+loop 18
+lc #lc titl tlum
+beam from #na to #na+4 inc 1 type pg pa 1.4
+let#na #na+5
+let#lc #lc+1
+endloop
+
+end
+
++prog ase urs:7
+head tlum
+lc (1000 1032 1)
+lc (2000 2032 1)
+lc (3000 3032 1)
+lc (4000 4032 1)
+lc (5000 5032 1)
+lc (6000 6032 1)
+lc (7000 7032 1)
+lc (8000 8032 1)
+lc (8500 8532 1)
+end
+
+
++prog sofiload urs:10
+head wiatr
+lc 201 titl wiatr_bez_tlum
+beam (401000 401168 1) inc 1 type pyy pa 0.5
+beam from grp to 1 inc 1 type pyy pa 1.32
+cabl 1100100  inc 1 type pyy pa 0.14
+cabl 1100200  inc 1 type pyy pa 0.07
+cabl (1200101 1200104 1) inc 1 type pyy pa 0.105
+cabl (1200201 1200204 1) inc 1 type pyy pa 0.0525
+cabl (1300105 1300107 1) inc 1 type pyy pa 0.09
+cabl (1300205 1300207 1) inc 1 type pyy pa 0.045
+beam from 901000 to 901036 inc 1 type pyy pa 7.12 pe 1.89
+beam from 902000 to 902036 inc 1 type pyy pa 3.56 pe 0.945
+
+lc 301 titl wiatr_z_tlum
+beam (401000 401168 1) inc 1 type pyy pa 0.25
+beam from grp to 1 inc 1 type pyy pa 0.66
+cabl 1100100  inc 1 type pyy pa 0.07
+cabl 1100200  inc 1 type pyy pa 0.035
+cabl (1200101 1200104 1) inc 1 type pyy pa 0.0525
+cabl (1200201 1200204 1) inc 1 type pyy pa 0.0263
+cabl (1300105 1300107 1) inc 1 type pyy pa 0.045
+cabl (1300205 1300207 1) inc 1 type pyy pa 0.0225
+beam from 901000 to 901036 inc 1 type pyy pa 3.56 pe 0.945
+beam from 902000 to 902036 inc 1 type pyy pa 1.78 pe 0.473
+
+let#lc 302
+let#na 402000
+
+loop 11
+lc #lc titl wiatr_na_pieszych
+beam from #na to #na+4 inc 1 type pyy pa 2.125
+let#na #na+5
+let#lc #lc+1
+endloop
+
+loop 4
+lc #lc titl wiatr_na_pieszych
+beam from #na to #na+5 inc 1 type pyy pa 2.125
+let#na #na+6
+let#lc #lc+1
+endloop
+
+loop 18
+lc #lc titl wiatr_na_pieszych
+beam from #na to #na+4 inc 1 type pyy pa 2.125
+let#na #na+5
+let#lc #lc+1
+endloop
+
+end
+
++prog ase urs:8
+head  wiatr
+lc 201,301,302
+end
+
++prog sofiload urs:12
+head temperatura
+lc 401 titl lato
+beam from grp to 1 inc 1 type dt 45
+beam from grp to 2 inc 1 type dt 45
+beam from grp to 3 inc 1 type dt 45
+beam from grp to 4 inc 1 type dt 20
+beam from grp to 5 inc 1 type dt 20
+beam from grp to 6 inc 1 type dt 20
+beam from grp to 7 inc 1 type dt 45
+beam from grp to 8 inc 1 type dt 45
+beam from grp to 9 inc 1 type dt 45
+beam from grp to 10 inc 1 type dt 45
+cabl from grp to 11 inc 1 type dt 45
+cabl from grp to 12 inc 1 type dt 45
+cabl from grp to 13 inc 1 type dt 45
+
+
+lc 402 titl zima
+beam from grp to 1 inc 1 type dt -35
+beam from grp to 2 inc 1 type dt -35
+beam from grp to 3 inc 1 type dt -35
+beam from grp to 4 inc 1 type dt -25
+beam from grp to 5 inc 1 type dt -25
+beam from grp to 6 inc 1 type dt -25
+beam from grp to 7 inc 1 type dt -35
+beam from grp to 8 inc 1 type dt -35
+beam from grp to 9 inc 1 type dt -35
+beam from grp to 10 inc 1 type dt -35
+cabl from grp to 11 inc 1 type dt -35
+cabl from grp to 12 inc 1 type dt -35
+cabl from grp to 13 inc 1 type dt -35
+
+end
+
++prog ase urs:15
+head temp
+lc 401,402
+end
+
++prog sofiload urs:28
+head   naciag
+lc 501 type none titl L1_1; cabl 1100100 type vx 100
+lc 502 type none titl L1_2; cabl 1100200 type vx 100
+lc 503 type none titl L2_1; cabl 1200101 type vx 100
+lc 504 type none titl L2_2; cabl 1200102 type vx 100
+lc 505 type none titl L3_1; cabl 1200103 type vx 100
+lc 506 type none titl L3_2; cabl 1200104 type vx 100
+lc 507 type none titl L4_1; cabl 1200201 type vx 100
+lc 508 type none titl L4_2; cabl 1200202 type vx 100
+lc 509 type none titl L5_1; cabl 1200203 type vx 100
+lc 510 type none titl L5_2; cabl 1200204 type vx 100
+lc 511 type none titl L6_1; cabl 1300105 type vx 100
+lc 512 type none titl L6_2; cabl 1300106 type vx 100
+lc 513 type none titl L7_1; cabl 1300107 type vx 100
+lc 514 type none titl L7_2; cabl 1300205 type vx 100
+lc 515 type none titl L8_1; cabl 1300206 type vx 100
+lc 516 type none titl L8_2; cabl 1300207 type vx 100
+lc 500 type none facd 1.0  titl G
+
+end
+
++prog ase urs:13
+head  naciag
+lc 500
+lc (501 516 1)
+end
+
++prog csm urs:26
+head wstepny_naciag
+eqlc no 500 type  G
+eqlc (501 516 1) FREE
+equu 20005,20016,20019,20022,20025,20028,20031,30005,30016,30019,30022,30025,30028,30031 uz 0
+equu 40035,50035 ux 0
+sto#nvariables 16
+end
+
++prog ase urs:29
+head     Naciag_ze_wspolczynnikami
+echo disp,react,forc,nost,bedd no
+echo disp yes
+lc 10000 dlz 1 titl CSM_Kombinacja
+    lcc 501 fact 14.481552
+    lcc 502 fact 14.480983
+    lcc 503 fact 4.504874
+    lcc 504 fact 8.950914
+    lcc 505 fact 4.328024
+    lcc 506 fact 4.974452
+    lcc 507 fact 4.508420
+    lcc 508 fact 8.953045
+    lcc 509 fact 4.327215
+    lcc 510 fact 4.974370
+    lcc 511 fact 4.072593
+    lcc 512 fact 3.610656
+    lcc 513 fact 2.720892
+    lcc 514 fact 4.072555
+    lcc 515 fact 3.610697
+    lcc 516 fact 2.720943
+end
+
+
+
++prog maxima urs:14
+head  kombinacje
+$wspolczynniki wg normy ukladu podstawowego - wiatr 1,3 ; temperatura 1.3 ; tlum 1.3 ; c.wlasny 1.2 ; wyposazenie 1.5 ;
+comb 1 extr stan base 11000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 10000 type G fact 1.0 $naciag
+supp comb 1 extr mami etyp beam type my titl Komb1_My
+supp comb 1 extr mami etyp beam type n  titl Komb1_N
+supp comb 1 extr mami etyp cabl type n titl Komb1_N,cabl
+
+comb 2 extr stan base 12000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 401 type G fact 1.3 $lato
+lc 10000 type G fact 1.0 $naciag
+supp comb 2 extr mami etyp beam type my titl Komb2_My
+supp comb 2 extr mami etyp beam type n  titl Komb2_N
+supp comb 2 extr mami etyp cabl type n titl Komb2_N,cabl
+
+comb 3 extr stan base 13000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 402 type G fact 1.3 $zima
+lc 10000 type G fact 1.0 $naciag
+supp comb 3 extr mami etyp beam type my titl Komb3_My
+supp comb 3 extr mami etyp beam type n  titl Komb3_N
+supp comb 3 extr mami etyp cabl type n titl Komb3_N,cabl
+
+comb 4 extr stan base 14000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 201 type G fact 1.3 $wiatr
+lc 10000 type G fact 1.0 $naciag
+supp comb 4 extr mami etyp beam type my titl Komb4_My
+supp comb 4 extr mami etyp beam type n  titl Komb4_N
+supp comb 4 extr mami etyp cabl type n titl Komb4_N,cabl
+
+comb 5 extr stan base 15000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 401 type G fact 1.3 $lato
+lc 201 type G fact 1.3 $wiatr
+lc 10000 type G fact 1.0 $naciag
+supp comb 5 extr mami etyp beam type my titl Komb5_My
+supp comb 5 extr mami etyp beam type n  titl Komb5_N
+supp comb 5 extr mami etyp cabl type n titl Komb5_N,cabl
+
+comb 6 extr stan base 16000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc 402 type G fact 1.3 $zima
+lc 201 type G fact 1.3 $wiatr
+lc 10000 type G fact 1.0 $naciag
+supp comb 6 extr mami etyp beam type my titl Komb6_My
+supp comb 6 extr mami etyp beam type n  titl Komb6_N
+supp comb 6 extr mami etyp cabl type n titl Komb6_N,cabl
+
+comb 7 extr stan base 17000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 10000 type G fact 1.0 $naciag
+supp comb 7 extr mami etyp beam type my titl Komb7_My
+supp comb 7 extr mami etyp beam type n  titl Komb7_N
+supp comb 7 extr mami etyp cabl type n titl Komb7_N,cabl
+
+comb 8 extr stan base 18000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 401 type G fact 1.3 $lato
+lc 10000 type G fact 1.0 $naciag
+supp comb 8 extr mami etyp beam type my titl Komb8_My
+supp comb 8 extr mami etyp beam type n  titl Komb8_N
+supp comb 8 extr mami etyp cabl type n titl Komb8_N,cabl
+
+comb 9 extr stan base 19000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 402 type G fact 1.3 $zima
+lc 10000 type G fact 1.0 $naciag
+supp comb 9 extr mami etyp beam type my titl Komb9_My
+supp comb 9 extr mami etyp beam type n  titl Komb9_N
+supp comb 9 extr mami etyp cabl type n titl Komb9_N,cabl
+
+comb 10 extr stan base 20000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 301 type G fact 1.3 $wiatr z tłumem
+lc 302 type Q fact 1.3 $wiatr na pieszych
+lc 10000 type G fact 1.0 $naciag
+supp comb 10 extr mami etyp beam type my titl Komb10_My
+supp comb 10 extr mami etyp beam type n  titl Komb10_N
+supp comb 10 extr mami etyp cabl type n titl Komb10_N,cabl
+
+comb 11 extr stan base 21000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 301 type G fact 1.3 $wiatr z tłumem
+lc 302 type Q fact 1.3 $wiatr na pieszych
+lc 401 type G fact 1.3 $lato
+lc 10000 type G fact 1.0 $naciag
+supp comb 11 extr mami etyp beam type my titl Komb11_My
+supp comb 11 extr mami etyp beam type n  titl Komb11_N
+supp comb 11 extr mami etyp cabl type n titl Komb11_N,cabl
+
+comb 12 extr stan base 22000
+lc 1 type G fact 1.2 $c.wlasny
+lc 11 type G fact 1.5  $zywica
+lc 12 type G fact 1.5 $balustrada
+lc (1000 8600 1) type Q fact 1.3 $tłum
+lc 301 type G fact 1.3 $wiatr z tłumem
+lc 302 type Q fact 1.3 $wiatr na pieszych
+lc 402 type G fact 1.3 $lato
+lc 10000 type G fact 1.0 $naciag
+supp comb 12 extr mami etyp beam type my titl Komb12_My
+supp comb 12 extr mami etyp beam type n  titl Komb12_N
+supp comb 12 extr mami etyp cabl type n titl Komb12_N,cabl
+end
+
++prog aqb urs:9
+head komb_1_N_i_My
+lc 11021,11022,11029,11030
+stre e
+end
+
++prog aqb urs:11
+head komb_2_N_i_My
+lc 12021,12022,12029,12030
+stre e
+end
+
++prog aqb urs:27
+head komb_3_N_i_My
+lc 13021,13022,13029,13030
+stre e
+end
+
++prog aqb urs:16
+head komb_4_N_i_My
+lc 14021,14022,14029,14030
+stre e
+end
+
++prog aqb urs:18
+head komb_5_N_i_My
+lc 15021,15022,15029,15030
+stre e
+end
++prog aqb urs:19
+head komb_6_N_i_My
+lc 16021,16022,16029,16030
+stre e
+end
+
++prog aqb urs:20
+head komb_7_N_i_My
+lc 17021,17022,17029,17030
+stre e
+end
+
++prog aqb urs:21
+head komb_8_N_i_My
+lc 18021,18022,18029,18030
+stre e
+end
+
++prog aqb urs:22
+head komb_9_N_i_My
+lc 19021,19022,19029,19030
+stre e
+end
+
++prog aqb urs:23
+head komb_10_N_i_My
+lc 20021,20022,20029,20030
+stre e
+end
+
++prog aqb urs:24
+head komb_11_N_i_My
+lc 21021,21022,21029,21030
+stre e
+end
+
++prog aqb urs:25
+head komb_12_N_i_My
+lc 22021,22022,22029,22030
+stre e
+end
++prog aqb urs:17
+head liny_N
+beam type cabl
+lc 11043,11044,12043,12044,13043,13044,14043,14044,15043,15044,16043,16044,17043,17044,18043,18044,19043,19044,20043,20044,21043,21044,22043,22044
+stre e
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
